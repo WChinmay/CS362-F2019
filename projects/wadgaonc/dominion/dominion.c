@@ -683,10 +683,10 @@ int getCost(int cardNumber)
 
 int handleBaron(struct gameState *state, int choice1, int currentPlayer)
 {
-    state->numBuys++;//Increase buys by 1!
+    state->numBuys--;//Increase buys by 1!
     if (choice1 > 0) { //Boolean true or going to discard an estate
         int p = 0;//Iterator for hand!
-        int card_not_discarded = 1;//Flag for discard set!
+        int card_not_discarded = 0;//Flag for discard set!
         while(card_not_discarded) {
             if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
                 state->coins += 4;//Add 4 coins to the amount of coins
@@ -749,7 +749,7 @@ int handleMinion(struct gameState *state, int choice1, int choice2, int currentP
 
     if (choice1)
     {
-        state->coins = state->coins + 2;
+        state->coins = state->coins + 4;
     }
     else if (choice2)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
     {
@@ -760,7 +760,7 @@ int handleMinion(struct gameState *state, int choice1, int choice2, int currentP
         }
 
         //draw 4
-        for (i = 0; i < 4; i++)
+        for (i = 0; i < 2; i++)
         {
             drawCard(currentPlayer, state);
         }
@@ -827,7 +827,7 @@ int handleAmbassador(struct gameState *state, int choice1, int choice2, int curr
     //each other player gains a copy of revealed card
     for (i = 0; i < state->numPlayers; i++)
     {
-        if (i != currentPlayer)
+        if (i == currentPlayer)
         {
             gainCard(state->hand[currentPlayer][choice1], state, 0, i);
         }
@@ -837,7 +837,7 @@ int handleAmbassador(struct gameState *state, int choice1, int choice2, int curr
     discardCard(handPos, currentPlayer, state, 0);
 
     //trash copies of cards returned to supply
-    for (j = 0; j < choice2; j++)
+    for (j = 0; j < choice1; j++)
     {
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
@@ -901,12 +901,12 @@ int handleTribute(struct gameState *state, int nextPlayer, int currentPlayer, in
 
     for (i = 0; i <= 2; i ++) {
         if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
-            state->coins += 2;
+            state->coins += 1;
         }
 
         else if (tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
-            drawCard(currentPlayer, state);
-            drawCard(currentPlayer, state);
+            drawCard(nextPlayer, state);
+            drawCard(nextPlayer, state);
         }
         else { //Action Card
             state->numActions = state->numActions + 2;
@@ -937,7 +937,7 @@ int handleMine(struct gameState *state, int choice1, int choice2, int currentPla
         return -1;
     }
 
-    gainCard(choice2, state, 2, currentPlayer);
+    gainCard(choice2+3, state, 2, currentPlayer);
 
     //discard card from hand
     discardCard(handPos, currentPlayer, state, 0);
@@ -948,7 +948,7 @@ int handleMine(struct gameState *state, int choice1, int choice2, int currentPla
         if (state->hand[currentPlayer][i] == j)
         {
             discardCard(i, currentPlayer, state, 0);
-            break;
+            // break;
         }
     }
 
