@@ -1,0 +1,95 @@
+        -:    0:Source:unittest2.c
+        -:    0:Graph:unittest2.gcno
+        -:    0:Data:unittest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:
+function myAssert called 0 returned 0% blocks executed 0%
+    #####:    8:int myAssert()
+        -:    9:{
+    #####:   10:    return 1;
+        -:   11:}
+function main called 1 returned 100% blocks executed 80%
+        1:   12:int main()
+        -:   13:{
+        -:   14:    // set your card array
+        1:   15:    int k[10] = { adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall };
+        -:   16:
+        -:   17:    // declare the game state
+        -:   18:    struct gameState G;
+        1:   19:    int seed = 9769;
+        -:   20:
+        1:   21:    printf("Begin Testing handleMinion():\n");
+call    0 returned 100%
+        -:   22:
+        1:   23:    memset(&G, 23, sizeof(struct gameState));
+        -:   24:    // set the game state
+        1:   25:    int r = initializeGame(2, k, seed, &G);
+call    0 returned 100%
+        -:   26:    // initialize a new game
+        -:   27:
+        -:   28:    // set any other variables
+        1:   29:    int test1 = G.coins;
+        1:   30:    printf("Num coins is %d\n", G.coins);
+call    0 returned 100%
+        -:   31:    // call the refactored function
+        1:   32:    int r1 = handleMinion(&G, 1, 0, 0, 0);
+call    0 returned 100%
+        1:   33:    int test2 = G.coins;
+        1:   34:    printf("Num coins is %d\n", G.coins);
+call    0 returned 100%
+        -:   35:    // check if num coins incremented by 2 after one call to handleMinion
+        1:   36:    if (test1 == test2 - 2)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:   37:    {
+    #####:   38:        myAssert();
+call    0 never executed
+    #####:   39:        printf("Unit test passed!\n");
+call    0 never executed
+        -:   40:    }
+        -:   41:    else
+        -:   42:    {
+        1:   43:        printf("Unit test failed :(\n");
+call    0 returned 100%
+        -:   44:    }
+        1:   45:    test1 = G.handCount[0];
+        1:   46:    printf("Hand count is %d\n", G.handCount[0]);
+call    0 returned 100%
+        -:   47:    // call the refactored function
+        1:   48:    int r2 = handleMinion(&G, 0, 1, 0, 0);
+call    0 returned 100%
+        1:   49:    test2 = G.handCount[0];
+        1:   50:    printf("Hand count is %d\n", G.handCount[0]);
+call    0 returned 100%
+        -:   51:    // check if player drew card 4 times by using handCount
+        1:   52:    if (test1 == test2 - 4)
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:   53:    {
+    #####:   54:        myAssert();
+call    0 never executed
+    #####:   55:        printf("Unit test passed!\n");
+call    0 never executed
+        -:   56:    }
+        -:   57:    else
+        -:   58:    {
+        1:   59:        printf("Unit test failed :(\n");
+call    0 returned 100%
+        -:   60:    }
+        -:   61:    // another call to handleMinion() to get higher coverage
+        -:   62:    // set any other variables
+        -:   63:    // setting handcount of other player to be more than 4 to execute left over code block
+        1:   64:    G.handCount[1] = 5;
+        -:   65:    // call the refactored function
+        1:   66:    int r3 = handleMinion(&G, 0, 1, 0, 0);
+call    0 returned 100%
+        1:   67:    printf("Test completed!\n");
+call    0 returned 100%
+        -:   68:}
