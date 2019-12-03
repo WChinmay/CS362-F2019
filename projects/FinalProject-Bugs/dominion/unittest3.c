@@ -68,41 +68,16 @@ int main() {
 
 	discardCard(handPos, thisPlayer, &G, 0);
 	discardCard(choice1, thisPlayer, &G, 1);
-	gainCard(choice2, &G, 2, thisPlayer);
+	gainCard(choice2, &G, 0, thisPlayer);
 
 	confirm(result == 0);
 	printf("Function Return = %d, Expected = %d\n", result, 0);
 	confirm(testG.handCount[thisPlayer] == G.handCount[thisPlayer]);
 	printf("Hand Count = %d, Expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer]);
-        
+        	
 
-	// ----------- TEST 2: Choice 2 equals -1 --------------
-	printf("\n-- TEST 2: Choice 2 is not a card --\n");
-
-	// initialize a game state and player cards
-	initializeGame(numPlayers, k, seed, &G);
-
-	// Set player hand
-        G.handCount[thisPlayer] = 5;
-	G.hand[thisPlayer][0] = mine;
-	G.hand[thisPlayer][1] = copper;
-	G.hand[thisPlayer][2] = duchy;
-	G.hand[thisPlayer][3] = smithy;
-	G.hand[thisPlayer][4] = feast;
-
-	// Copy the game state to a test case
-	memcpy(&testG, &G, sizeof(struct gameState));
-	choice1 = 0;
-	choice2 = -1;
-	handPos = 0;
-	result = cardEffect(card, choice1, choice2, choice3, &testG, handPos, bonus);
-		
-	confirm(result == -1);
-	printf("Function Return = %d, Expected = %d\n", result, -1);
-		
-
-	// ----------- TEST 3: Choice 2 costs more than the cost of the trashed card + 3 --------------
-	printf("\n-- TEST 3: Choice 2 is too expensive --\n");
+	// ----------- TEST 2: Choice 2 costs more than the cost of the trashed card + 3 --------------
+	printf("\n-- TEST 2: Choice 2 is too expensive --\n");
 
 	// initialize a game state and player cards
 	initializeGame(numPlayers, k, seed, &G);
@@ -121,12 +96,12 @@ int main() {
 	choice2 = gold;
 	handPos = 0;
 	result = cardEffect(card, choice1, choice2, choice3, &testG, handPos, bonus);
-		
+        		
 	confirm(result == -1);
 	printf("Function Return = %d, Expected = %d\n", result, -1);
-        
+        confirm(testG.handCount[thisPlayer] == G.handCount[thisPlayer]);
+	printf("Hand Count = %d, Expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer]);
 
 	printf("\n >>>>> Testing complete <<<<<\n\n");
 	return 0;
 }
-
