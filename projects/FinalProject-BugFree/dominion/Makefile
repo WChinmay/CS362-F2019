@@ -13,6 +13,15 @@ playdom: dominion.o playdom.c
 testDrawCard: testDrawCard.c dominion.o rngs.o
 	gcc  -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
 
+unittest1: unittest1_2.c dominion.o rngs.o
+	gcc  -o unittest1 -g  unittest1_2.c dominion.o rngs.o $(CFLAGS)
+	
+unittest2: unittest1_2.c dominion.o rngs.o
+	gcc  -o unittest2 -g  unittest1_2.c dominion.o rngs.o $(CFLAGS)
+	
+unittest3: unittest3.c dominion.o rngs.o
+	gcc  -o unittest3 -g  unittest3.c dominion.o rngs.o $(CFLAGS)
+
 unittest7: unittest7.c dominion.o rngs.o
 	gcc  -o unittest7 -g  unittest7.c dominion.o rngs.o $(CFLAGS)
 	
@@ -21,6 +30,18 @@ unittest8: unittest8.c dominion.o rngs.o
 
 unittest9: unittest9.c dominion.o rngs.o
 	gcc  -o unittest9 -g  unittest9.c dominion.o rngs.o $(CFLAGS)
+
+unittestresults: unittest1 unittest2 unittest3 unittest4 unittest5 unittest6 unittest7 unittest8 unittest9 unittest10
+	./unittest1 &> unittestresults.out
+	./unittest3 >> unittestresults.out
+	./unittest4 >> unittestresults.out
+	./unittest5 >> unittestresults.out
+	./unittest6 >> unittestresults.out
+	./unittest7 >> unittestresults.out
+	./unittest8 >> unittestresults.out
+	./unittest9 >> unittestresults.out
+	./unittest10 >> unittestresults.out
+	gcov dominion.c -b -f >> unittestresults.out
 
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
