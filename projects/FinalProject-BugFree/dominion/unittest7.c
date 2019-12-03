@@ -1,0 +1,61 @@
+#include "dominion.h"
+#include "dominion_helpers.h"
+#include "rngs.h"
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+int myAssert()
+{
+    return 1;
+}
+int main()
+{
+    // set your card array
+    int k[10] = { adventurer, tribute, feast, gardens, mine, remodel, smithy, village, baron, great_hall };
+
+    // declare the game state
+    struct gameState G;
+    int seed = 9769;
+    int bonus = 0;
+
+    printf("Begin Testing bug 7:\n");
+
+    memset(&G, 23, sizeof(struct gameState));
+    // set the game state
+    int r = initializeGame(2, k, seed, &G);
+    // initialize a new game
+
+    // set any other variables
+    G.deckCount[0] = 5;
+    G.deckCount[1] = 5;
+    // Setting all cards for next player to be treasure cards
+    for (int i = 0; i < G.deckCount[1]; i++)
+    {
+        G.hand[1][i] = copper; 
+        G.deck[1][i] = copper; 
+    }
+    int test1 = G.numActions;
+    int test2 = G.numActions;
+    int test3 = numHandCards(&G);
+    printf("Num actions is %d\n", G.numActions);
+    printf("Num coins is %d\n", G.coins);
+    printf("Number of cards in hand is %d\n", numHandCards(&G));
+    // call the refactored function
+    int r1 = cardEffect(tribute, 1, 0, 0, &G, 0, &bonus);
+    printf("Num actions is %d\n", G.numActions);
+    printf("Num coins is %d\n", G.coins);
+    printf("Number of cards in hand is %d\n", numHandCards(&G));
+
+    // check if numActions stays constant since only treasure cards could be revealed
+    if ((G.numActions <= test1 + 4) && (G.coins <= test2 + 4) && (numHandCards(&G) <= test3 + 2))
+    {
+        myAssert();
+        printf("Unit test passed! Bug 7 fixed.\n");
+    }
+    else
+    {
+        printf("Unit test failed :(. Bug 7 persists.\n");
+    }
+    printf("Test completed!\n");
+}
