@@ -14,10 +14,10 @@ testDrawCard: testDrawCard.c dominion.o rngs.o
 	gcc  -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
 
 unittest1: unittest1_2.c dominion.o rngs.o
-	gcc  -o unittest1_2 -g  unittest1_2.c dominion.o rngs.o $(CFLAGS)
+	gcc  -o unittest1 -g  unittest1_2.c dominion.o rngs.o $(CFLAGS)
 	
 unittest2: unittest1_2.c dominion.o rngs.o
-	gcc  -o unittest1_2 -g  unittest1_2.c dominion.o rngs.o $(CFLAGS)
+	gcc  -o unittest2 -g  unittest1_2.c dominion.o rngs.o $(CFLAGS)
 	
 unittest3: unittest3.c dominion.o rngs.o
 	gcc  -o unittest3 -g  unittest3.c dominion.o rngs.o $(CFLAGS)
