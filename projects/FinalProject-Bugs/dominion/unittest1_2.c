@@ -23,9 +23,9 @@ int main() {
         confirm(getCost(copper) == 0);
 	printf("Copper: Function Return = %d, Expected = %d\n", getCost(copper), 0);
         confirm(getCost(silver) == 3);
-	printf("Copper: Function Return = %d, Expected = %d\n", getCost(silver), 3);
+	printf("Silver: Function Return = %d, Expected = %d\n", getCost(silver), 3);
         confirm(getCost(gold) == 6);
-	printf("Copper: Function Return = %d, Expected = %d\n", getCost(gold), 6);
+	printf("Gold: Function Return = %d, Expected = %d\n", getCost(gold), 6);
 
 
 
@@ -104,8 +104,8 @@ int main() {
 	choice2 = silver;
         handPos = 0;
         result = cardEffect(card, choice1, choice2, choice3, &testG, handPos, bonus);
-	discardCard(0, thisPlayer, &G, 0);
-	discardCard(1, thisPlayer, &G, 1);
+	discardCard(handPos, thisPlayer, &G, 0);
+	discardCard(choice1, thisPlayer, &G, 1);
 	gainCard(silver, &G, 2, thisPlayer);
 
 	confirm(result == 0);
