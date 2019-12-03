@@ -89,7 +89,9 @@ int main()
 
     printf("Begin Testing in Minion:\n");
     // set any other variables
-    G.coins = 3;
+    // G.coins = 3;
+    G.hand[0][0] = estate;
+    r2 = updateCoins(0, &G, bonus);
     test1 = G.coins;
     printf("Num coins before function call is %d\n", G.coins);
     // call the refactored function
