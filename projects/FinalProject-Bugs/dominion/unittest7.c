@@ -42,7 +42,7 @@ int main()
     printf("Num coins is %d\n", G.coins);
     printf("Number of cards in hand is %d\n", numHandCards(&G));
     // call the refactored function
-    int r1 = cardEffect(tribute, 0, 0, 0, &G, 0, &bonus);
+    int r1 = cardEffect(tribute, 1, 0, 0, &G, 0, &bonus);
     printf("Num actions is %d\n", G.numActions);
     printf("Num coins is %d\n", G.coins);
     printf("Number of cards in hand is %d\n", numHandCards(&G));
