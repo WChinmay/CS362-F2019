@@ -20,11 +20,9 @@ int main() {
     memcpy(G.hand[p], coppers, sizeof(int) * handCount);
     int bonus = 0; 
     
-    G.discard[p][0] = -1;
     G.discardCount[p] = 0;
 
-    G.hand[p][0] = feast;
-    G.handCount[p] = 4; 
+    G.handCount[p] = 3; 
     G.hand[p][0] = 9;   // Gives 4 coins
     G.hand[p][1] = 6;   
     G.hand[p][2] = 6;   
