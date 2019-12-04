@@ -22,6 +22,15 @@ unittest2: unittest1_2.c dominion.o rngs.o
 unittest3: unittest3.c dominion.o rngs.o
 	gcc  -o unittest3 -g  unittest3.c dominion.o rngs.o $(CFLAGS)
 
+unittest4: unittest4.c dominion.o rngs.o
+	gcc  -o unittest4 -g  unittest4.c dominion.o rngs.o $(CFLAGS)
+
+unittest5: unittest5.c dominion.o rngs.o
+	gcc  -o unittest5 -g  unittest5.c dominion.o rngs.o $(CFLAGS)
+
+unittest6: unittest6.c dominion.o rngs.o
+	gcc  -o unittest6 -g  unittest6.c dominion.o rngs.o $(CFLAGS)
+
 unittest7: unittest7.c dominion.o rngs.o
 	gcc  -o unittest7 -g  unittest7.c dominion.o rngs.o $(CFLAGS)
 	
