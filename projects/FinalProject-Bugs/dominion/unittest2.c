@@ -16,21 +16,21 @@ void confirm (int passed) {
 
 
 int main() {
-        printf("\n--------------------------- Unit Test 3: --------------------------\n");
+        printf("\n--------------------------- Unit Test 2: --------------------------\n");
         printf("\n----------------- Testing getCost: ----------------\n");
 	// ----------- TEST getCost for silver, copper, gold --------------
 	printf("\n-- Test copper, silver, gold cost are correct --\n");
         
-        confirm(getCost(estate) == 2);
-	printf("Estate: Function Return = %d, Expected = %d\n", getCost(estate), 2);
-        confirm(getCost(village) == 3);
-	printf("Village: Function Return = %d, Expected = %d\n", getCost(village), 3);
+        confirm(getCost(copper) == 0);
+	printf("Copper: Function Return = %d, Expected = %d\n", getCost(copper), 0);
+        confirm(getCost(silver) == 3);
+	printf("Silver: Function Return = %d, Expected = %d\n", getCost(silver), 3);
         confirm(getCost(gold) == 6);
 	printf("Gold: Function Return = %d, Expected = %d\n", getCost(gold), 6);
 
 
 
-        int card = remodel;
+        int card = mine;
     	int choice1, choice2, result, handPos;
         int choice3 = -1;
         int* bonus = 0;
@@ -40,10 +40,10 @@ int main() {
 	struct gameState G, testG;
 	int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
 			sea_hag, tribute, smithy, council_room};
+      
+      
 
-
-
-	printf("\n---------- Testing cardEffect for Remodel: ---------\n");
+	printf("\n------------ Testing cardEffect for Mine: -----------\n");
 
 	// ----------- TEST 1: Choice 1 and 2 are valid --------------
 	printf("\n-- TEST 1: Choice 1 and 2 are valid --\n");
@@ -51,7 +51,8 @@ int main() {
 	// initialize a game state and player cards
 	initializeGame(numPlayers, k, seed, &G);
 
-        // Set player hand
+        
+	// Set player hand
 	G.handCount[thisPlayer] = 5;
 	G.hand[thisPlayer][0] = mine;
 	G.hand[thisPlayer][1] = copper;
@@ -61,24 +62,22 @@ int main() {
 
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
-	choice1 = 3;
-	choice2 = village;
+	choice1 = 1;
+	choice2 = silver;
         handPos = 0;
-
         result = cardEffect(card, choice1, choice2, choice3, &testG, handPos, bonus);
-
 	discardCard(handPos, thisPlayer, &G, 0);
 	discardCard(choice1, thisPlayer, &G, 1);
-	gainCard(choice2, &G, 0, thisPlayer);
+	gainCard(silver, &G, 2, thisPlayer);
 
 	confirm(result == 0);
 	printf("Function Return = %d, Expected = %d\n", result, 0);
 	confirm(testG.handCount[thisPlayer] == G.handCount[thisPlayer]);
 	printf("Hand Count = %d, Expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer]);
-        	
+        
 
-	// ----------- TEST 2: Choice 2 costs more than the cost of the trashed card + 3 --------------
-	printf("\n-- TEST 2: Choice 2 is too expensive --\n");
+	// ----------- TEST 2: Choice 2 equals -1 --------------
+	printf("\n-- TEST 2: Choice 2 is not a card --\n");
 
 	// initialize a game state and player cards
 	initializeGame(numPlayers, k, seed, &G);
@@ -86,7 +85,32 @@ int main() {
 	// Set player hand
         G.handCount[thisPlayer] = 5;
 	G.hand[thisPlayer][0] = mine;
-	G.hand[thisPlayer][1] = estate;
+	G.hand[thisPlayer][1] = copper;
+	G.hand[thisPlayer][2] = duchy;
+	G.hand[thisPlayer][3] = smithy;
+	G.hand[thisPlayer][4] = feast;
+
+	// Copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	choice1 = 0;
+	choice2 = -11;
+	handPos = 0;
+	result = cardEffect(card, choice1, choice2, choice3, &testG, handPos, bonus);
+		
+	confirm(result == -1);
+	printf("Function Return = %d, Expected = %d\n", result, -1);
+		
+
+	// ----------- TEST 3: Choice 2 costs more than the cost of the trashed card + 3 --------------
+	printf("\n-- TEST 3: Choice 2 is too expensive --\n");
+
+	// initialize a game state and player cards
+	initializeGame(numPlayers, k, seed, &G);
+
+	// Set player hand
+        G.handCount[thisPlayer] = 5;
+	G.hand[thisPlayer][0] = mine;
+	G.hand[thisPlayer][1] = copper;
 	G.hand[thisPlayer][2] = duchy;
 	G.hand[thisPlayer][3] = smithy;
 	G.hand[thisPlayer][4] = feast;
@@ -97,12 +121,12 @@ int main() {
 	choice2 = gold;
 	handPos = 0;
 	result = cardEffect(card, choice1, choice2, choice3, &testG, handPos, bonus);
-        		
+		
 	confirm(result == -1);
 	printf("Function Return = %d, Expected = %d\n", result, -1);
-        confirm(testG.handCount[thisPlayer] == G.handCount[thisPlayer]);
-	printf("Hand Count = %d, Expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer]);
+        
 
 	printf("\n >>>>> Testing complete <<<<<\n\n");
 	return 0;
 }
+
