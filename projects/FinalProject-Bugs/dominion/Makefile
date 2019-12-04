@@ -22,6 +22,9 @@ unittest8: unittest8.c dominion.o rngs.o
 unittest9: unittest9.c dominion.o rngs.o
 	gcc  -o unittest9 -g  unittest9.c dominion.o rngs.o $(CFLAGS)
 
+unittest10: unittest10.c dominion.o rngs.o
+	gcc  -o unittest10 -g  unittest10.c dominion.o rngs.o $(CFLAGS)
+
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
