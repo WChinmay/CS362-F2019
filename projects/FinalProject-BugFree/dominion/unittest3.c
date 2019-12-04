@@ -16,6 +16,7 @@ void confirm (int passed) {
 
 
 int main() {
+        printf("\n--------------------------- Unit Test 3: --------------------------\n");
         printf("\n----------------- Testing getCost: ----------------\n");
 	// ----------- TEST getCost for silver, copper, gold --------------
 	printf("\n-- Test copper, silver, gold cost are correct --\n");
@@ -42,7 +43,7 @@ int main() {
 
 
 
-	printf("\n----------- Testing cardEffect for Remodel: ----------\n");
+	printf("\n---------- Testing cardEffect for Remodel: ---------\n");
 
 	// ----------- TEST 1: Choice 1 and 2 are valid --------------
 	printf("\n-- TEST 1: Choice 1 and 2 are valid --\n");
@@ -105,4 +106,3 @@ int main() {
 	printf("\n >>>>> Testing complete <<<<<\n\n");
 	return 0;
 }
-
